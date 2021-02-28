@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "917799161936",
+    "project_id": "daily-life-7ero",
+    "storage_bucket": "daily-life-7ero.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:917799161936:android:7ea28adc958491f2ca8155",
+        "android_client_info": {
+          "package_name": "com.zalzaela.daily_life"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "917799161936-4vj6o4hd4nq9vmnl96106o31cdrs7tch.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4TEnulKsCgAgns51rQrFEPnV3p1AeB5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "917799161936-4vj6o4hd4nq9vmnl96106o31cdrs7tch.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
