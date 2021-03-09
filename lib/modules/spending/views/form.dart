@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:daily_life/routes/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -74,7 +76,7 @@ class _SpendingFormState extends State<SpendingForm> {
                         'uid': user.uid,
                       });
 
-                      Navigator.of(context).pushNamed("/spending");
+                      Routes.router.navigateTo(context, "/main", transition: TransitionType.material);
                     },
                     child: FaIcon(
                       FontAwesomeIcons.solidSave,

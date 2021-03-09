@@ -1,63 +1,79 @@
 import 'package:daily_life/main.dart';
 import 'package:daily_life/modules/Auth/views/index.dart';
-import 'package:daily_life/modules/Credit/views/index.dart';
 import 'package:daily_life/modules/Credit/views/form.dart';
-import 'package:daily_life/modules/Income/views/index.dart';
+import 'package:daily_life/modules/Credit/views/index.dart';
 import 'package:daily_life/modules/Income/views/form.dart';
-import 'package:daily_life/modules/dahboard/views/index.dart';
-import 'package:daily_life/modules/settings/views/index.dart';
-import 'package:daily_life/modules/spending/views/index.dart';
+import 'package:daily_life/modules/Income/views/index.dart';
 import 'package:daily_life/modules/spending/views/form.dart';
+import 'package:daily_life/modules/spending/views/index.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluro/fluro.dart';
 
 class Routes {
-  static Route<dynamic> generateRoute(RouteSettings setting) {
-    final args = setting.arguments;
+  static FluroRouter router;
+  // Auth
+  static Handler _authHandler = Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+          Auth());
+  // MainScreen
+  static Handler _mainScreenHandler =
+      Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+        var user = FirebaseAuth.instance.currentUser;
+    return MainScreen(user: user, page: 1);
+  });
 
-    switch (setting.name) {
-      case '/':
-        if (args is User) {
-          return MaterialPageRoute(
-            builder: (_) => MainScreen(
-              user: args,
-            ),
-          );
-        }
-        return _errorRoute();
-      case '/auth':
-        return MaterialPageRoute(builder: (_) => Auth());
-      case '/credit':
-        return MaterialPageRoute(builder: (_) => Credit());
-      case '/credit/add':
-        return MaterialPageRoute(builder: (_) => CreditForm());
-      case '/dashboard':
-        return MaterialPageRoute(builder: (_) => Dashboard());
-      case '/income':
-        return MaterialPageRoute(builder: (_) => Income());
-      case '/income/add':
-        return MaterialPageRoute(builder: (_) => IncomeForm());
-      case '/settings':
-        return MaterialPageRoute(builder: (_) => Settings());
-      case '/spending':
-        return MaterialPageRoute(builder: (_) => Spending());
-      case '/spending/add':
-        return MaterialPageRoute(builder: (_) => SpendingForm());
-      default:
-        return _errorRoute();
-    }
-  }
+  // Income
+  static Handler _incomeHandler = Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+          Income());
+  static Handler _incomeFromHandler = Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+          IncomeForm());
+  // Spending
+  static Handler _spendingHandler = Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+          Spending());
+  static Handler _spendingFromHandler = Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+          SpendingForm());
+  // Credit
+  static Handler _creditHandler = Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+          Credit());
+  static Handler _creditFormHandler = Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) =>
+          CreditForm());
 
-  static Route<dynamic> _errorRoute() {
-    return MaterialPageRoute(builder: (_) {
+  static void configureRoutes(FluroRouter router) {
+    router.notFoundHandler = Handler(
+        handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+      print("ROUTE WAS NOT FOUND !!!");
       return Scaffold(
-        appBar: AppBar(
-          title: Text("Error"),
-        ),
-        body: Center(
-          child: Text("Error Route."),
+        body: Container(
+          color: Colors.white,
+          child: Center(
+            child: Text(
+              "ROUTE WAS NOT FOUND !!!",
+              style: TextStyle(fontSize: 16, color: Colors.black),
+            ),
+          ),
         ),
       );
     });
+    // Auth
+    router.define("/auth", handler: _authHandler);
+    // MainScreen
+    router.define("/main", handler: _mainScreenHandler);
+    // Income
+    router.define("/income", handler: _incomeHandler);
+    router.define("/income/form", handler: _incomeFromHandler);
+    // Spending
+    router.define("/spending", handler: _spendingHandler);
+    router.define("/spending/form", handler: _spendingFromHandler);
+    // Credit
+    router.define("/credit", handler: _creditHandler);
+    router.define("/credit/form", handler: _creditFormHandler);
+    // router.define(demoSimpleFixedTrans, handler: demoRouteHandler, transitionType: TransitionType.inFromLeft);
   }
 }

@@ -12,7 +12,7 @@ class _SpendingState extends State<Spending> {
   Widget build(BuildContext context) {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     CollectionReference spendingColReff = firestore.collection("spending");
-
+    
     return Container(
       color: Colors.white,
       child: ListView(

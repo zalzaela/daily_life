@@ -19,7 +19,7 @@ class Auth extends StatelessWidget {
             if(profider.isSigningIn) {
               return buildLoading();
             } else if(snapshot.hasData) {
-              return MainScreen(user: user);
+              return MainScreen(user: user, page: 2);
             } else {
               return Login();
             }

@@ -1,6 +1,7 @@
 import 'package:daily_life/routes/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:daily_life/vendor/components/app_bars.dart';
@@ -21,6 +22,12 @@ void main() async {
 final key = new GlobalKey<_MainScreenState>();
 
 class DailyLife extends StatelessWidget {
+  DailyLife() {
+    final router = FluroRouter();
+    Routes.configureRoutes(router);
+    Routes.router = router;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -31,16 +38,17 @@ class DailyLife extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       initialRoute: '/auth',
-      onGenerateRoute: Routes.generateRoute,
+      onGenerateRoute: Routes.router.generator,
     );
   }
 }
 
 class MainScreen extends StatefulWidget {
   final User user;
+  final int page;
   MainScreen({
     Key key,
-    @required this.user,
+    @required this.user, this.page
   }) : super(key: key);
 
   @override
@@ -48,7 +56,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _selectedItem = 2;
+  int _selectedItem;
   var _menuName = ["Income", "Spending", "Dashboard", "Credit", ""];
 
   List<Widget> _menu = [
@@ -61,6 +69,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    _selectedItem = 2;
     return Scaffold(
       backgroundColor: Colors.white,
       bottomNavigationBar: CustomBottomNavBar01(
@@ -122,17 +131,18 @@ class _MainScreenState extends State<MainScreen> {
                     switch (_selectedItem) {
                       case 0:
                         {
-                          Navigator.of(context).pushNamed('/income/add');
+                          Routes.router.navigateTo(context, "/income/form", transition: TransitionType.material);
+                          Routes.router.navigateTo(context, path)
                         }
                         break;
                       case 1:
                         {
-                          Navigator.of(context).pushNamed('/spending/add');
+                          Routes.router.navigateTo(context, "/spending/form", transition: TransitionType.material);
                         }
                         break;
                       case 3:
                         {
-                          Navigator.of(context).pushNamed('/credit/add');
+                          Routes.router.navigateTo(context, "/credit/form", transition: TransitionType.material);
                         }
                         break;
                     }
