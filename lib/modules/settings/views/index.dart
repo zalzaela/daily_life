@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-class Settings extends StatefulWidget {
+class AppSettings extends StatefulWidget {
   @override
-  _SettingsState createState() => _SettingsState();
+  _AppSettingsState createState() => _AppSettingsState();
 }
 
-class _SettingsState extends State<Settings> {
+class _AppSettingsState extends State<AppSettings> {
   var user = FirebaseAuth.instance.currentUser;
 
   @override
