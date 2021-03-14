@@ -1,5 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zalzaela.daily_life">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    
    <application
         android:label="daily_life"
         android:icon="@mipmap/ic_launcher">
