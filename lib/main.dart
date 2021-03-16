@@ -5,7 +5,6 @@ import 'package:daily_life/modules/auth/repository/authenticaiton_repository.dar
 import 'package:daily_life/modules/auth/repository/authentication_firebase_provider.dart';
 import 'package:daily_life/modules/auth/repository/google_sign_in_provider.dart';
 import 'package:daily_life/modules/category/blocs/category_bloc.dart';
-import 'package:daily_life/modules/category/models/category_models.dart';
 import 'package:daily_life/modules/category/repository/category_repository.dart';
 import 'package:daily_life/modules/income/blocs/income_bloc.dart';
 import 'package:daily_life/modules/income/repository/income_repository.dart';
