@@ -42,5 +42,11 @@ class RoutesFluro {
     router.define("/", handler: authHandler);
     router.define("/addEditSpending", handler: spendingFromHandler);
     router.define("/addEditIncome", handler: incomeFromHandler);
+
+    router.define("/account", handler: accountHandler);
+    router.define("/addEditAccount", handler: accountFromHandler);
+    
+    router.define("/category", handler: categoryHandler);
+    router.define("/addEditCategory", handler: categoryFromHandler);
   }
 }

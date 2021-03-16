@@ -44,7 +44,7 @@ class SpendingBloc extends Bloc<SpendingEvent, SpendingState> {
   }
 
   Stream<SpendingState> _mapUpdateSpendingToState(UpdateSpending event) async* {
-    _spendingRepository.updateSpending(event.updatedSpending);
+    _spendingRepository.updateSpending(event.spendingModel);
   }
 
   Stream<SpendingState> _mapDeleteSpendingToState(DeleteSpending event) async* {

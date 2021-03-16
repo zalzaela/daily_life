@@ -22,15 +22,15 @@ class AddIncome extends IncomeEvent {
 }
 
 class UpdateIncome extends IncomeEvent {
-  final IncomeModel updatedIncome;
+  final IncomeModel incomeModel;
 
-  const UpdateIncome(this.updatedIncome);
-
-  @override
-  List<Object> get props => [updatedIncome];
+  const UpdateIncome(this.incomeModel);
 
   @override
-  String toString() => 'UpdateIncome { updatedIncome: $updatedIncome }';
+  List<Object> get props => [incomeModel];
+
+  @override
+  String toString() => 'UpdateIncome { incomeModel: $incomeModel }';
 }
 
 class DeleteIncome extends IncomeEvent {
@@ -44,10 +44,6 @@ class DeleteIncome extends IncomeEvent {
   @override
   String toString() => 'DeleteIncome { incomeModel: $incomeModel }';
 }
-
-class ClearCompleted extends IncomeEvent {}
-
-class ToggleAll extends IncomeEvent {}
 
 class IncomeUpdated extends IncomeEvent {
   final List<IncomeModel> incomeModel;

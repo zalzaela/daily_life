@@ -1,5 +1,6 @@
 import 'package:daily_life/modules/dahboard/views/dashboard_view.dart';
 import 'package:daily_life/modules/income/views/list_income_view.dart';
+import 'package:daily_life/modules/setting/views/setting_view.dart';
 import 'package:daily_life/modules/spending/views/list_spending_view.dart';
 import 'package:daily_life/utils/widgets/widgets.dart';
 import 'package:daily_life/utils/bloc/tab/tab_bloc.dart';
@@ -67,6 +68,9 @@ class MainView extends StatelessWidget {
         break;
       case TabModel.dashboard:
         return DashboardView();
+        break;
+      case TabModel.setting:
+        return SettingView();
         break;
       default:
         return Container();

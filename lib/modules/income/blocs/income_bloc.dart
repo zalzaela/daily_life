@@ -44,7 +44,7 @@ class IncomeBloc extends Bloc<IncomeEvent, IncomeState> {
   }
 
   Stream<IncomeState> _mapUpdateIncomeToState(UpdateIncome event) async* {
-    _incomeRepository.updateIncome(event.updatedIncome);
+    _incomeRepository.updateIncome(event.incomeModel);
   }
 
   Stream<IncomeState> _mapDeleteIncomeToState(DeleteIncome event) async* {

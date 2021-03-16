@@ -76,3 +76,37 @@ var incomeFromHandler =
     isEditing: false,
   );
 });
+
+var accountHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  return ListViewAccount();
+});
+
+var accountFromHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  return FormAccountView(
+    onSave: (name, balance, type) {
+      BlocProvider.of<AccountBloc>(context).add(
+        AddAccount(AccountModel(name: name, balance: balance, type: type)),
+      );
+    },
+    isEditing: false,
+  );
+});
+
+var categoryHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  return ListViewCategory();
+});
+
+var categoryFromHandler =
+    Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+  return FormCategoryView(
+    onSave: (name, type) {
+      BlocProvider.of<CategoryBloc>(context).add(
+        AddCategory(CategoryModel(name: name, type: type)),
+      );
+    },
+    isEditing: false,
+  );
+});

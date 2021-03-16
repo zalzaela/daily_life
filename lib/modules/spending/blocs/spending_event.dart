@@ -22,15 +22,15 @@ class AddSpending extends SpendingEvent {
 }
 
 class UpdateSpending extends SpendingEvent {
-  final SpendingModel updatedSpending;
+  final SpendingModel spendingModel;
 
-  const UpdateSpending(this.updatedSpending);
-
-  @override
-  List<Object> get props => [updatedSpending];
+  const UpdateSpending(this.spendingModel);
 
   @override
-  String toString() => 'UpdateSpending { updatedSpending: $updatedSpending }';
+  List<Object> get props => [SpendingModel];
+
+  @override
+  String toString() => 'UpdateSpending { SpendingModel: $SpendingModel }';
 }
 
 class DeleteSpending extends SpendingEvent {
@@ -44,10 +44,6 @@ class DeleteSpending extends SpendingEvent {
   @override
   String toString() => 'DeleteSpending { spendingModel: $spendingModel }';
 }
-
-class ClearCompleted extends SpendingEvent {}
-
-class ToggleAll extends SpendingEvent {}
 
 class SpendingUpdated extends SpendingEvent {
   final List<SpendingModel> spendingModel;

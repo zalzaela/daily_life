@@ -109,20 +109,33 @@ class _FormSpendingViewState extends State<FormSpendingView> {
                   ),
                 ),
               ),
-              TextFormField(
-                initialValue: isEditing ? widget.spendingModel.account : '',
-                autofocus: !isEditing,
-                style: textTheme.headline5,
-                decoration: InputDecoration(
-                  hintText: 'Account',
-                ),
-                validator: (val) {
-                  return val.trim().isEmpty ? 'Please enter account' : null;
+              BlocBuilder<AccountBloc, AccountState>(
+                builder: (context, state) {
+                  if (state is AccountLoading) {
+                    return LoadingIndicator();
+                  } else if (state is AccountLoaded) {
+                    final accountSpending = state.accountModel;
+                    return DropdownButtonFormField(
+                      dropdownColor: Colors.grey,
+                      value:
+                          isEditing ? widget.spendingModel.account : _account,
+                      hint: Text('Select Account'),
+                      icon: FaIcon(FontAwesomeIcons.sortDown),
+                      iconSize: 30,
+                      elevation: 16,
+                      onChanged: (String newValue) {
+                        _account = newValue;
+                      },
+                      items: accountSpending.map((AccountModel accountModel) {
+                        return DropdownMenuItem<String>(
+                            value: accountModel.name,
+                            child: Text(accountModel.name));
+                      }).toList(),
+                    );
+                  } else {
+                    return Container();
+                  }
                 },
-                onFieldSubmitted: (value) {
-                  print(value);
-                },
-                onSaved: (value) => _account = value,
               ),
               TextFormField(
                 initialValue:
@@ -137,17 +150,35 @@ class _FormSpendingViewState extends State<FormSpendingView> {
                 },
                 onSaved: (value) => _amount = int.parse(value),
               ),
-              TextFormField(
-                initialValue: isEditing ? widget.spendingModel.category : '',
-                autofocus: !isEditing,
-                style: textTheme.headline5,
-                decoration: InputDecoration(
-                  hintText: 'Category',
-                ),
-                validator: (val) {
-                  return val.trim().isEmpty ? 'Please enter category' : null;
+              BlocBuilder<CategoryBloc, CategoryState>(
+                builder: (context, state) {
+                  if (state is CategoryLoading) {
+                    return LoadingIndicator();
+                  } else if (state is CategoryLoaded) {
+                    final categorySpending = state.categoryModel
+                        .where((category) => category.type == 'spending');
+                    return DropdownButtonFormField(
+                      dropdownColor: Colors.grey,
+                      value:
+                          isEditing ? widget.spendingModel.category : _category,
+                      hint: Text('Select Category'),
+                      icon: FaIcon(FontAwesomeIcons.sortDown),
+                      iconSize: 30,
+                      elevation: 16,
+                      onChanged: (String newValue) {
+                        _category = newValue;
+                      },
+                      items:
+                          categorySpending.map((CategoryModel categoryModel) {
+                        return DropdownMenuItem<String>(
+                            value: categoryModel.name,
+                            child: Text(categoryModel.name));
+                      }).toList(),
+                    );
+                  } else {
+                    return Container();
+                  }
                 },
-                onSaved: (value) => _category = value,
               ),
               TextFormField(
                 initialValue: isEditing ? widget.spendingModel.note : '',
@@ -168,7 +199,8 @@ class _FormSpendingViewState extends State<FormSpendingView> {
         onPressed: () {
           if (_formKey.currentState.validate()) {
             _formKey.currentState.save();
-            widget.onSave(_account, _amount, _category, Timestamp.fromDate(_selectedDate), _note);
+            widget.onSave(_account, _amount, _category,
+                Timestamp.fromDate(_selectedDate), _note);
             Navigator.pop(context);
           }
         },

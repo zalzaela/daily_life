@@ -1,7 +1,12 @@
+import 'package:daily_life/modules/account/blocs/account_bloc.dart';
+import 'package:daily_life/modules/account/repository/account_repository.dart';
 import 'package:daily_life/modules/auth/bloc/authentication_bloc.dart';
 import 'package:daily_life/modules/auth/repository/authenticaiton_repository.dart';
 import 'package:daily_life/modules/auth/repository/authentication_firebase_provider.dart';
 import 'package:daily_life/modules/auth/repository/google_sign_in_provider.dart';
+import 'package:daily_life/modules/category/blocs/category_bloc.dart';
+import 'package:daily_life/modules/category/models/category_models.dart';
+import 'package:daily_life/modules/category/repository/category_repository.dart';
 import 'package:daily_life/modules/income/blocs/income_bloc.dart';
 import 'package:daily_life/modules/income/repository/income_repository.dart';
 import 'package:daily_life/modules/spending/blocs/spending_bloc.dart';
@@ -58,6 +63,20 @@ class DailyLife extends StatelessWidget {
             return IncomeBloc(
               incomeRepository: FirebaseIncomeRepository(),
             )..add(LoadIncome());
+          },
+        ),
+        BlocProvider<AccountBloc>(
+          create: (context) {
+            return AccountBloc(
+              accountRepository: FirebaseAccountRepository(),
+            )..add(LoadAccount());
+          },
+        ),
+        BlocProvider<CategoryBloc>(
+          create: (context) {
+            return CategoryBloc(
+              categoryRepository: FirebaseCategoryRepository(),
+            )..add(LoadCategory());
           },
         ),
       ],
