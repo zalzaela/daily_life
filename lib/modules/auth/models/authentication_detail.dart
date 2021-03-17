@@ -17,6 +17,8 @@ class AuthenticationDetail {
     this.name,
   });
 
+  static AuthenticationDetail authenticationDetail;
+
   AuthenticationDetail copyWith({
     bool isValid,
     String uid,
@@ -84,5 +86,9 @@ class AuthenticationDetail {
         photoUrl.hashCode ^
         email.hashCode ^
         name.hashCode;
+  }
+
+  String get getEmail {
+    return this.email;
   }
 }

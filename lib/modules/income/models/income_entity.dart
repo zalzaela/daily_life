@@ -3,18 +3,20 @@ part of 'income_models.dart';
 class IncomeEntity extends Equatable {
   final String id;
   final String account;
+  final String accountId;
   final int amount;
   final String category;
   final Timestamp date;
   final String note;
 
-  const IncomeEntity(this.id, this.account, this.amount, this.category, this.date,
+  const IncomeEntity(this.id, this.account, this.accountId, this.amount, this.category, this.date,
       this.note);
 
   Map<String, Object> toJson() {
     return {
       'id': id,
       'account': account,
+      'accountId': accountId,
       'amount': amount,
       'category': category,
       'date': date,
@@ -23,17 +25,18 @@ class IncomeEntity extends Equatable {
   }
 
   @override
-  List<Object> get props => [id, account, amount, category, date, note/*, uid*/];
+  List<Object> get props => [id, account, accountId, amount, category, date, note/*, uid*/];
 
   @override
   String toString() {
-    return 'IncomeEntity{id: $id, account: $account, amount: $amount, category: $category, date: $date, note: $note}';
+    return 'IncomeEntity{id: $id, account: $account, accountId: $accountId, amount: $amount, category: $category, date: $date, note: $note}';
   }
 
   static IncomeEntity fromJson(Map<String, Object> json) {
     return IncomeEntity(
       json['id'] as String,
       json['account'] as String,
+      json['accountId'] as String,
       json['amount'] as int,
       json['category'] as String,
       json['date'] as Timestamp,
@@ -45,6 +48,7 @@ class IncomeEntity extends Equatable {
     return IncomeEntity(
       snap.id,
       snap.data()['account'],
+      snap.data()['accountId'],
       snap.data()['amount'],
       snap.data()['category'],
       snap.data()['date'],
@@ -55,6 +59,7 @@ class IncomeEntity extends Equatable {
   Map<String, Object> toDocument() {
     return {
       'account': account,
+      'accountId': accountId,
       'amount': amount,
       'category': category,
       'date': date,

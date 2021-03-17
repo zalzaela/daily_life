@@ -1,3 +1,4 @@
+import 'package:daily_life/modules/auth/models/authentication_detail.dart';
 import 'package:daily_life/modules/dahboard/views/dashboard_view.dart';
 import 'package:daily_life/modules/income/views/list_income_view.dart';
 import 'package:daily_life/modules/setting/views/setting_view.dart';
@@ -9,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainView extends StatelessWidget {
+  static AuthenticationDetail authenticationDetail;
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TabBloc, TabModel>(

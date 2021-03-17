@@ -5,6 +5,8 @@ class FirebaseAccountRepository implements AccountRepository {
 
   @override
   Future<void> addNewAccount(AccountModel accountModel) {
+    Map<String, dynamic> data = accountModel.toEntity().toDocument();
+    data['uid'] = AuthenticationDetail.authenticationDetail.uid;
     return accountCollection.add(accountModel.toEntity().toDocument());
   }
 
@@ -15,7 +17,7 @@ class FirebaseAccountRepository implements AccountRepository {
 
   @override
   Stream<List<AccountModel>> account() {
-    return accountCollection.snapshots().map((snapshot) {
+    return accountCollection.where('uid', isEqualTo: AuthenticationDetail.authenticationDetail.uid).snapshots().map((snapshot) {
       return snapshot.docs
           .map((doc) => AccountModel.fromEntity(AccountEntity.fromSnapshot(doc)))
           .toList();

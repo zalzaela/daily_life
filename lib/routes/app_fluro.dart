@@ -1,6 +1,7 @@
 import 'package:daily_life/modules/account/blocs/account_bloc.dart';
 import 'package:daily_life/modules/account/models/account_models.dart';
 import 'package:daily_life/modules/account/views/list_account_view.dart';
+import 'package:daily_life/modules/auth/models/authentication_detail.dart';
 import 'package:daily_life/modules/category/blocs/category_bloc.dart';
 import 'package:daily_life/modules/category/models/category_models.dart';
 import 'package:daily_life/modules/category/views/list_category_view.dart';

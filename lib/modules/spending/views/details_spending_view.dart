@@ -79,11 +79,12 @@ class DetailsScreen extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (context) {
                           return FormSpendingView(
-                            onSave: (account, amount, category, date, note) {
+                            onSave: (accountId, accountName, amount, category, date, note) {
                               BlocProvider.of<SpendingBloc>(context).add(
                                 UpdateSpending(
                                   spending.copyWith(
-                                      account: account,
+                                      accountId: accountId,
+                                      account: accountName,
                                       amount: amount,
                                       category: category,
                                       date: date,

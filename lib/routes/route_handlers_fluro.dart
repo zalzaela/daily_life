@@ -21,6 +21,7 @@ var authHandler =
           } else if (state is AuthenticationLoading) {
             return CircularProgressIndicator();
           } else if (state is AuthenticationSuccess) {
+            AuthenticationDetail.authenticationDetail = new AuthenticationDetail.fromMap(state.authenticationDetail.toMap());            
             return MultiBlocProvider(
               providers: [
                 BlocProvider<TabBloc>(
@@ -42,11 +43,12 @@ var authHandler =
 var spendingFromHandler =
     Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
   return FormSpendingView(
-    onSave: (account, amount, category, date, note) {
+    onSave: (accountId, accountName, amount, category, date, note) {
       BlocProvider.of<SpendingBloc>(context).add(
         AddSpending(
           SpendingModel(
-              account: account,
+              accountId: accountId,
+              account: accountName,
               amount: amount,
               category: category,
               date: date,
@@ -61,11 +63,12 @@ var spendingFromHandler =
 var incomeFromHandler =
     Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) {
   return FormIncomeView(
-    onSave: (account, amount, category, date, note) {
+    onSave: (accountId, accountName, amount, category, date, note) {
       BlocProvider.of<IncomeBloc>(context).add(
         AddIncome(
           IncomeModel(
-              account: account,
+              accountId: accountId,
+              account: accountName,
               amount: amount,
               category: category,
               date: date,

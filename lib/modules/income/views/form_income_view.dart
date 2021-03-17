@@ -1,7 +1,7 @@
 part of 'list_income_view.dart';
 
-typedef OnSaveCallback = Function(
-    String account, int amount, String category, Timestamp date, String note);
+typedef OnSaveCallback = Function(String accountId, String accountName,
+    int amount, String category, Timestamp date, String note);
 
 class FormIncomeView extends StatefulWidget {
   final bool isEditing;
@@ -22,7 +22,9 @@ class FormIncomeView extends StatefulWidget {
 class _FormIncomeViewState extends State<FormIncomeView> {
   static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  String _account;
+  String _accountName;
+  String _accountId;
+  String _accountIdName;
   int _amount;
   String _category;
   String _note;
@@ -44,6 +46,7 @@ class _FormIncomeViewState extends State<FormIncomeView> {
     _selectedDate = DateTime.now();
     if (isEditing) {
       _dateController.text = readTimestamp(widget.incomeModel.date);
+      _accountIdName = widget.incomeModel.accountId+'-'+widget.incomeModel.account;
     }
   }
 
@@ -118,17 +121,20 @@ class _FormIncomeViewState extends State<FormIncomeView> {
                     final accountIncome = state.accountModel;
                     return DropdownButtonFormField(
                       dropdownColor: Colors.grey,
-                      value: isEditing ? widget.incomeModel.account : _account,
+                      value: _accountIdName,
+                      disabledHint: isEditing ? Text(widget.incomeModel.account) : Text(''),
                       hint: Text('Select Account'),
                       icon: FaIcon(FontAwesomeIcons.sortDown),
                       iconSize: 30,
                       elevation: 16,
                       onChanged: (String newValue) {
-                        _account = newValue;
+                        var parts = newValue.split('-');
+                        _accountId = parts[0].trim();
+                        _accountName = parts[1].trim();
                       },
-                      items: accountIncome.map((AccountModel accountModel) {
+                      items: isEditing ? null : accountIncome.map((AccountModel accountModel) {
                         return DropdownMenuItem<String>(
-                            value: accountModel.name,
+                            value: accountModel.id + '-' + accountModel.name,
                             child: Text(accountModel.name));
                       }).toList(),
                     );
@@ -142,6 +148,7 @@ class _FormIncomeViewState extends State<FormIncomeView> {
                     isEditing ? widget.incomeModel.amount.toString() : '',
                 autofocus: !isEditing,
                 style: textTheme.headline5,
+                readOnly: isEditing ? true : false,
                 decoration: InputDecoration(
                   hintText: 'Amount',
                 ),
@@ -198,7 +205,7 @@ class _FormIncomeViewState extends State<FormIncomeView> {
         onPressed: () {
           if (_formKey.currentState.validate()) {
             _formKey.currentState.save();
-            widget.onSave(_account, _amount, _category,
+            widget.onSave(_accountId, _accountName, _amount, _category,
                 Timestamp.fromDate(_selectedDate), _note);
             Navigator.pop(context);
           }

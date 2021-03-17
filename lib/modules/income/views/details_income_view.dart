@@ -80,11 +80,12 @@ class DetailsIncomeView extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (context) {
                           return FormIncomeView(
-                            onSave: (account, amount, category, date, note) {
+                            onSave: (accountId, accountName, amount, category, date, note) {
                               BlocProvider.of<IncomeBloc>(context).add(
                                 UpdateIncome(
                                   income.copyWith(
-                                      account: account,
+                                      accountId: accountId,
+                                      account: accountName,
                                       amount: amount,
                                       category: category,
                                       date: date,

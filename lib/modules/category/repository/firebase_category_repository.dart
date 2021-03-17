@@ -5,6 +5,8 @@ class FirebaseCategoryRepository implements CategoryRepository {
 
   @override
   Future<void> addNewCategory(CategoryModel categoryModel) {
+    Map<String, dynamic> data = categoryModel.toEntity().toDocument();
+    data['uid'] = AuthenticationDetail.authenticationDetail.uid;
     return categoryCollection.add(categoryModel.toEntity().toDocument());
   }
 
@@ -15,7 +17,7 @@ class FirebaseCategoryRepository implements CategoryRepository {
 
   @override
   Stream<List<CategoryModel>> category() {
-    return categoryCollection.snapshots().map((snapshot) {
+    return categoryCollection.where('uid', isEqualTo: AuthenticationDetail.authenticationDetail.uid).snapshots().map((snapshot) {
       return snapshot.docs
           .map((doc) => CategoryModel.fromEntity(CategoryEntity.fromSnapshot(doc)))
           .toList();

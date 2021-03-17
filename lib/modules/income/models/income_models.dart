@@ -8,6 +8,7 @@ part 'income_entity.dart';
 class IncomeModel {
   final String id;
   final String account;
+  final String accountId;
   final int amount;
   final String category;
   final Timestamp date;
@@ -16,6 +17,7 @@ class IncomeModel {
   IncomeModel(
       {String id,
       String account,
+      String accountId,
       int amount,
       String category = '',
       Timestamp date,
@@ -23,6 +25,7 @@ class IncomeModel {
       String uid})
       : this.id = id,
         this.account = account ?? '',
+        this.accountId = accountId ?? '',
         this.amount = amount ?? 0,
         this.category = category ?? '',
         this.date = date ?? '',
@@ -31,6 +34,7 @@ class IncomeModel {
   IncomeModel copyWith({
     String id,
     String account,
+    String accountId,
     int amount,
     String category,
     Timestamp date,
@@ -39,6 +43,7 @@ class IncomeModel {
     return IncomeModel(
       id: id ?? this.id,
       account: account ?? this.account,
+      accountId: accountId ?? this.accountId,
       amount: amount ?? this.amount,
       category: category ?? this.category,
       date: date ?? this.date,
@@ -50,6 +55,7 @@ class IncomeModel {
   int get hashCode =>
       id.hashCode ^
       account.hashCode ^
+      accountId.hashCode ^
       amount.hashCode ^
       category.hashCode ^
       date.hashCode ^
@@ -62,6 +68,7 @@ class IncomeModel {
           runtimeType == other.runtimeType &&
           id == other.id &&
           account == other.account &&
+          accountId == other.accountId &&
           amount == other.amount &&
           category == other.category &&
           date == other.date &&
@@ -69,17 +76,18 @@ class IncomeModel {
 
   @override
   String toString() {
-    return 'IncomeModel{id: $id, account: $account, amount: $amount, category: $category, date: $date, note: $note}';
+    return 'IncomeModel{id: $id, account: $account, accountId: $accountId, amount: $amount, category: $category, date: $date, note: $note}';
   }
 
   IncomeEntity toEntity() {
-    return IncomeEntity(id, account, amount, category, date, note);
+    return IncomeEntity(id, account, accountId, amount, category, date, note);
   }
 
   static IncomeModel fromEntity(IncomeEntity entity) {
     return IncomeModel(
       id: entity.id,
       account: entity.account,
+      accountId: entity.accountId,
       amount: entity.amount,
       category: entity.category,
       date: entity.date,

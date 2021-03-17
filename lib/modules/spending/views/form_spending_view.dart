@@ -1,7 +1,7 @@
 part of 'list_spending_view.dart';
 
 typedef OnSaveCallback = Function(
-    String account, int amount, String category, Timestamp date, String note);
+    String accountId, String accountName, int amount, String category, Timestamp date, String note);
 
 class FormSpendingView extends StatefulWidget {
   final bool isEditing;
@@ -21,7 +21,9 @@ class FormSpendingView extends StatefulWidget {
 
 class _FormSpendingViewState extends State<FormSpendingView> {
   static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String _account;
+  String _accountName;
+  String _accountId;
+  String _accountIdName;
   int _amount;
   String _category;
   String _note;
@@ -43,6 +45,7 @@ class _FormSpendingViewState extends State<FormSpendingView> {
     _selectedDate = DateTime.now();
     if (isEditing) {
       _dateController.text = readTimestamp(widget.spendingModel.date);
+      _accountIdName = widget.spendingModel.accountId+'-'+widget.spendingModel.account;
     }
   }
 
@@ -117,18 +120,20 @@ class _FormSpendingViewState extends State<FormSpendingView> {
                     final accountSpending = state.accountModel;
                     return DropdownButtonFormField(
                       dropdownColor: Colors.grey,
-                      value:
-                          isEditing ? widget.spendingModel.account : _account,
+                      value:_accountIdName,
                       hint: Text('Select Account'),
                       icon: FaIcon(FontAwesomeIcons.sortDown),
                       iconSize: 30,
                       elevation: 16,
+                      disabledHint:  isEditing ? Text(widget.spendingModel.account) : Text(''),
                       onChanged: (String newValue) {
-                        _account = newValue;
+                        var parts = newValue.split('-');
+                        _accountId = parts[0].trim();
+                        _accountName = parts[1].trim();
                       },
-                      items: accountSpending.map((AccountModel accountModel) {
+                      items: isEditing ? null : accountSpending.map((AccountModel accountModel) {
                         return DropdownMenuItem<String>(
-                            value: accountModel.name,
+                            value: accountModel.id + '-' + accountModel.name,
                             child: Text(accountModel.name));
                       }).toList(),
                     );
@@ -142,6 +147,7 @@ class _FormSpendingViewState extends State<FormSpendingView> {
                     isEditing ? widget.spendingModel.amount.toString() : '',
                 autofocus: !isEditing,
                 style: textTheme.headline5,
+                readOnly: isEditing ? true : false,
                 decoration: InputDecoration(
                   hintText: 'Amount',
                 ),
@@ -199,7 +205,7 @@ class _FormSpendingViewState extends State<FormSpendingView> {
         onPressed: () {
           if (_formKey.currentState.validate()) {
             _formKey.currentState.save();
-            widget.onSave(_account, _amount, _category,
+            widget.onSave(_accountId, _accountName, _amount, _category,
                 Timestamp.fromDate(_selectedDate), _note);
             Navigator.pop(context);
           }
