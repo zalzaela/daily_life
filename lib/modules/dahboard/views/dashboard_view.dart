@@ -1,4 +1,4 @@
-import 'package:daily_life/modules/auth/models/authentication_detail.dart';
+import 'package:daily_life/modules/authentication/models/authentication_detail.dart';
 import 'package:flutter/material.dart';
 
 class DashboardView extends StatelessWidget {

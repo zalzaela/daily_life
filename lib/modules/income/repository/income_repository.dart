@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:daily_life/modules/auth/models/authentication_detail.dart';
+import 'package:daily_life/modules/authentication/models/authentication_detail.dart';
 import 'package:daily_life/modules/income/models/income_models.dart';
 
 part 'firebase_income_repository.dart';

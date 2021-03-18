@@ -1,6 +1,6 @@
-import 'package:daily_life/modules/auth/models/authentication_detail.dart';
-import 'package:daily_life/modules/auth/repository/authentication_firebase_provider.dart';
-import 'package:daily_life/modules/auth/repository/google_sign_in_provider.dart';
+import 'package:daily_life/modules/authentication/models/authentication_detail.dart';
+import 'package:daily_life/modules/authentication/repository/authentication_firebase_provider.dart';
+import 'package:daily_life/modules/authentication/repository/google_sign_in_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 

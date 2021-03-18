@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:daily_life/modules/auth/models/authentication_detail.dart';
-import 'package:daily_life/modules/auth/repository/authenticaiton_repository.dart';
+import 'package:daily_life/modules/authentication/models/authentication_detail.dart';
+import 'package:daily_life/modules/authentication/repository/authenticaiton_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 

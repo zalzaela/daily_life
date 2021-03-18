@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daily_life/modules/account/models/account_models.dart';
-import 'package:daily_life/modules/auth/models/authentication_detail.dart';
+import 'package:daily_life/modules/authentication/models/authentication_detail.dart';
 
 part 'firebase_account_repository.dart';
 

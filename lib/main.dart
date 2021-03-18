@@ -1,9 +1,9 @@
 import 'package:daily_life/modules/account/blocs/account_bloc.dart';
 import 'package:daily_life/modules/account/repository/account_repository.dart';
-import 'package:daily_life/modules/auth/bloc/authentication_bloc.dart';
-import 'package:daily_life/modules/auth/repository/authenticaiton_repository.dart';
-import 'package:daily_life/modules/auth/repository/authentication_firebase_provider.dart';
-import 'package:daily_life/modules/auth/repository/google_sign_in_provider.dart';
+import 'package:daily_life/modules/authentication/bloc/authentication_bloc.dart';
+import 'package:daily_life/modules/authentication/repository/authenticaiton_repository.dart';
+import 'package:daily_life/modules/authentication/repository/authentication_firebase_provider.dart';
+import 'package:daily_life/modules/authentication/repository/google_sign_in_provider.dart';
 import 'package:daily_life/modules/category/blocs/category_bloc.dart';
 import 'package:daily_life/modules/category/repository/category_repository.dart';
 import 'package:daily_life/modules/income/blocs/income_bloc.dart';
